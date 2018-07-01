@@ -80,19 +80,28 @@ Iteration 1 is done with finetuning a *Faster RCNN Network with ResNet50 Backbon
 
 The images of the Lisa Traffic Light Dataset look like this:
 
-![orig_1][image9]
-![orig_2][image10]
+| Day Scene 1 | Day Scene 2 |
+:-:|:-:
+![orig_1][image9]|![orig_2][image10]
 
 
-# Current results on Udacity-images
 
-![detection1][image3]
-![detection2][image4]
-![detection3][image5]
-![detection4][image6]
-![detection5][image7]
-![detection6][image8]
+### Current results on Udacity-images
+---
 
+| | |
+:-:|:-:
+![detection1][image3]|![detection2][image4]
+![detection3][image5]|![detection4][image6]
+![detection5][image7]|![detection6][image8]
+
+
+## Work to do
+
+- Training on the other datasets
+- Speed up by training different architectures
+- Get invariance of traffic light size
+- Integrate into main project
 
 
 
