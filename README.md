@@ -72,6 +72,8 @@ Both, precision values and validation images can be shown in Tensorboard.
 ![monitor2][image2]
 
 
+
+
 ## Iteration 1 - Testing Faster RCNN (ResNet50) on Lisa Traffic Light Dataset
 
 Iteration 1 is done with finetuning a *Faster RCNN Network with ResNet50 Backbone (pretrained on MS COCO)*. This network is fine tuned 200k steps on the [Lisa Traffic Light Dataset](https://www.kaggle.com/mbornoe/lisa-traffic-light-dataset/home).
@@ -80,6 +82,16 @@ The images of the Lisa Traffic Light Dataset look like this:
 
 ![orig_1][image9]
 ![orig_2][image10]
+
+
+# Current results on Udacity-images
+
+![detection1][image3]
+![detection2][image4]
+![detection3][image5]
+![detection4][image6]
+![detection5][image7]
+![detection6][image8]
 
 
 
