@@ -1,74 +1,64 @@
-This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
+# Capstone Project
+Self-Driving Car Engineer Nanodegree Program
 
-Please use **one** of the two installation options, either native **or** docker installation.
+[//]: # (Image References)
+[image1]: ./imgs/training_trafficlight_sg/training_monitoring.png "moni1"
+[image2]: ./imgs/training_trafficlight_sg/training_monitoring2.png "moni2"
 
-### Native Installation
+[image3]: ./imgs/training_trafficlight_sg/detection1.jpg "detect1"
+[image4]: ./imgs/training_trafficlight_sg/detection1b.jpg "detect2"
+[image5]: ./imgs/training_trafficlight_sg/detection1c.jpg "detect3"
+[image6]: ./imgs/training_trafficlight_sg/detection2.jpg "detect4"
+[image7]: ./imgs/training_trafficlight_sg/detection2b.jpg "detect5"
+[image8]: ./imgs/training_trafficlight_sg/detection3.jpg "detect6"
 
-* Be sure that your workstation is running Ubuntu 16.04 Xenial Xerus or Ubuntu 14.04 Trusty Tahir. [Ubuntu downloads can be found here](https://www.ubuntu.com/download/desktop).
-* If using a Virtual Machine to install Ubuntu, use the following configuration as minimum:
-  * 2 CPU
-  * 2 GB system memory
-  * 25 GB of free hard drive space
+[image9]: ./imgs/training_trafficlight_sg/daySequence1.jpg "orig_modality1"
+[image10]: ./imgs/training_trafficlight_sg/daySequence1b.jpg "orig_modality2"
 
-  The Udacity provided virtual machine has ROS and Dataspeed DBW already installed, so you can skip the next two steps if you are using this.
+[image11]: https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/img/kites_detections_output.jpg "tensorflow_object"
 
-* Follow these instructions to install ROS
-  * [ROS Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu) if you have Ubuntu 16.04.
-  * [ROS Indigo](http://wiki.ros.org/indigo/Installation/Ubuntu) if you have Ubuntu 14.04.
-* [Dataspeed DBW](https://bitbucket.org/DataspeedInc/dbw_mkz_ros)
-  * Use this option to install the SDK on a workstation that already has ROS installed: [One Line SDK Install (binary)](https://bitbucket.org/DataspeedInc/dbw_mkz_ros/src/81e63fcc335d7b64139d7482017d6a97b405e250/ROS_SETUP.md?fileviewer=file-view-default)
-* Download the [Udacity Simulator](https://github.com/udacity/CarND-Capstone/releases).
 
-### Docker Installation
-[Install Docker](https://docs.docker.com/engine/installation/)
+## Training a Traffic Lights Detection and Classification Network
 
-Build the docker container
-```bash
-docker build . -t capstone
-```
+This task is about the perception module of the capstone project of the Udacity Self-Driving Car Engineer Nanodegree Program.
 
-Run the docker file
-```bash
-docker run -p 4567:4567 -v $PWD:/capstone -v /tmp/log:/root/.ros/ --rm -it capstone
-```
+To build up a robust and computational efficient system for traffic light detection and classification based on a deep neural network architecture, one might think about the following points:
 
-### Port Forwarding
-To set up port forwarding, please refer to the [instructions from term 2](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/16cf4a78-4fc7-49e1-8621-3450ca938b77)
+- What framework to use for training and inference (TensorFlow can be used in the car environment)
+- What neural network architecture to use
+- What datasets for training can be used
+- How to augment images for creating a robust network
+- How to deploy the trained model to the car environment
 
-### Usage
 
-1. Clone the project repository
-```bash
-git clone https://github.com/udacity/CarND-Capstone.git
-```
+### Framework
 
-2. Install python dependencies
-```bash
-cd CarND-Capstone
-pip install -r requirements.txt
-```
-3. Make and run styx
-```bash
-cd ros
-catkin_make
-source devel/setup.sh
-roslaunch launch/styx.launch
-```
-4. Run the simulator
+The [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) is a way to tackle the problem. Next to other really handy frameworks like [Darknet YOLO](https://pjreddie.com/darknet/yolo/), it is easy to use for fast prototyping, training, training monitoring and graph exports.
 
-### Real world testing
-1. Download [training bag](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/traffic_light_bag_file.zip) that was recorded on the Udacity self-driving car.
-2. Unzip the file
-```bash
-unzip traffic_light_bag_file.zip
-```
-3. Play the bag file
-```bash
-rosbag play -l traffic_light_bag_file/traffic_light_training.bag
-```
-4. Launch your project in site mode
-```bash
-cd CarND-Capstone/ros
-roslaunch launch/site.launch
-```
-5. Confirm that traffic light detection works on real life images
+![detectionAPI][image11]
+
+### Neural Network Architectures
+
+There are several architectures for object detection that have pros and cons. To name some of them:
+
+- Faster RCNN Architectures with different backends (slow but very accurate)
+- SingleShotDetectors (SSD) with different backends (very fast but not as accurate)
+- You Only Look Once (YOLO) with Darknet backends (fast and accurate)
+
+
+### Pre-Trained Network
+
+It is usefull to start with a pre-trained network and fine tune it on the specific task. Most networks are pre-trained on object-detection datasets like [COCO Dataset](http://cocodataset.org/#home) 
+
+
+### Dataset
+
+For this project, I want to use the following datasets for fine tuning:
+- [Lisa Traffic Light Dataset](https://www.kaggle.com/mbornoe/lisa-traffic-light-dataset/home)
+- [CamVid](http://mi.eng.cam.ac.uk/research/projects/VideoRec/CamVid/)
+- [Bosch Small Traffic Lights Dataset](https://hci.iwr.uni-heidelberg.de/node/6132)
+
+
+### Training
+
+
