@@ -61,4 +61,26 @@ For this project, I want to use the following datasets for fine tuning:
 
 ### Training
 
+Before the training begins, the specific datasets have to be converted to the framework-specific format. In this case to TF Record files. Three classes (red, yellow, green) are encoded with their bounding boxes.
+
+The actual training is done via [Tensorflow Object Detection API](https://github.com/tensorflow/models/tree/master/research/object_detection) and is monitored with Tensorboard.
+
+![monitor1][image1]
+
+Both, precision values and validation images can be shown in Tensorboard.
+
+![monitor2][image2]
+
+
+## Iteration 1 - Testing Faster RCNN (ResNet50) on Lisa Traffic Light Dataset
+
+Iteration 1 is done with finetuning a *Faster RCNN Network with ResNet50 Backbone (pretrained on MS COCO)*. This network is fine tuned 200k steps on the [Lisa Traffic Light Dataset](https://www.kaggle.com/mbornoe/lisa-traffic-light-dataset/home).
+
+The images of the Lisa Traffic Light Dataset look like this:
+
+![orig_1][image9]
+![orig_2][image10]
+
+
+
 
